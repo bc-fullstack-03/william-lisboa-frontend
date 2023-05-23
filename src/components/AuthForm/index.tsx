@@ -5,14 +5,42 @@ import Text from "../Text"
 import { TextInput } from "../TextInput"
 import Button from "../Button"
 import { Link } from "react-router-dom"
+import { FormEvent } from "react"
+
+interface AuthFormElements extends HTMLFormControlsCollection {
+  user: HTMLInputElement
+  password: HTMLInputElement
+}
+
+interface AuthFormElement extends HTMLFormElement {
+  readonly elements: AuthFormElements
+}
+
+export interface Auth {
+  user:string
+  name?:string
+  password: string
+}
 
 interface AuthFormProps {
-    authFormTitle: string
-    submitFormButtonText: string
-    routeName: string
+  authFormTitle: string
+  submitFormButtonText: string
+  routeName: string
+  submitFormButtonAction: (auth:Auth) => void
 }
 
 function AuthForm(props: AuthFormProps) {
+  function handleSubmit(event: FormEvent<AuthFormElement>){
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    const auth = {
+      user: form.elements.user.value,
+      password: form.elements.password.value
+    }
+
+    props.submitFormButtonAction(auth);
+  }
 
   return (
     <main className="flex flex-col mt-16 items-center">
@@ -22,6 +50,7 @@ function AuthForm(props: AuthFormProps) {
         <Text className="mt-2 opacity-50">{props.authFormTitle}</Text>
       </header>
       <form 
+        onSubmit={handleSubmit}
         className="flex flex-col items-stretch gap-4 w-full max-w-sm mt-12"
       >
         <Text>Endereço de e-mail</Text>
@@ -30,6 +59,7 @@ function AuthForm(props: AuthFormProps) {
             <Envelope />
           </TextInput.Icon>
           <TextInput.Input 
+            id="user"
             type="text" 
             placeholder="Digite seu e-mail" >
           </TextInput.Input>
@@ -40,6 +70,7 @@ function AuthForm(props: AuthFormProps) {
             <Lock />
           </TextInput.Icon>
           <TextInput.Input 
+            id="password"
             type="password" 
             placeholder="*********" >
           </TextInput.Input>
