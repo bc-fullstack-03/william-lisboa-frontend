@@ -6,6 +6,7 @@ import MainScreen from "../../components/MainScreen";
 import { Post } from "../../Model/Post";
 
 function Home(){
+    const user = localStorage.getItem("user") || "";
     const [posts,setPosts] = useState<Post[]>([])
     const authHeader = getAuthHeader();
 
@@ -22,8 +23,19 @@ function Home(){
         getPosts();
     }, [])
 
+    function postCreated(post:Post){
+        post = {
+            ...post,
+            profile: {
+                name: user
+            }
+        }
+
+        setPosts((posts) => [post, ...posts])
+    }
+
     return (
-        <MainScreen>
+        <MainScreen postCreated={postCreated}>
             <Feed posts={posts}/>
         </MainScreen>
     )
