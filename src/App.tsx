@@ -5,7 +5,7 @@ import {
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import Home from "./Pages/Home";
-import Profile from "./Pages/Profile";
+import ProfilePage from "./Pages/ProfilePage";
 import Friends from "./Pages/Friends";
 
 const router = createBrowserRouter([
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: <ProfilePage />,
   },
   {
     path: "/friends",
