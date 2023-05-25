@@ -32,8 +32,19 @@ function TextInputIcon(props:TextInputIcon){
     return <Slot className="w-6 h-6 text-gray-400">{props.children}</Slot>
 }
 
+export interface textInputTextAreaProps extends InputHTMLAttributes<HTMLUnknownElement> { }
+function TextInputTextArea(props: textInputTextAreaProps) {
+    return (
+        <textarea
+            className='text-white'
+            {...props}
+        />
+    )
+}
+
 export const TextInput = {
     Root: TextInputRoot,
     Input: TextInputInput,
-    Icon: TextInputIcon
+    Icon: TextInputIcon,
+    TextInputTextArea
 }
