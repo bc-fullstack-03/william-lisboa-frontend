@@ -7,6 +7,7 @@ import SignUp from "./Pages/SignUp";
 import Home from "./Pages/Home";
 import ProfilePage from "./Pages/ProfilePage";
 import Friends from "./Pages/Friends";
+import { PostDetail } from "./Pages/PostDetail";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/friends",
     element: <Friends />,
+  },
+  {
+    path: "posts/:postId",
+    element: <PostDetail/>
   }
 ]);
 
